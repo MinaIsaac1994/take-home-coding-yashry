@@ -1,24 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import { Container, Row, Col } from "react-bootstrap";
+import Categories from "./components/Categories";
+import ItemDisplay from "./components/ItemDisplay";
+import Filter from "./components/Filter";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container>
+      <Row>
+        <Col className="d-flex flex-column  align-items-center">
+          <h4>Our e-commerce store</h4>
+          <p>Choose of our categories from below</p>
+        </Col>
+      </Row>
+      <Row className="d-flex justify-content-around">
+        <Categories />
+      </Row>
+      <Row>
+        <Col className="col-3">
+          <Filter/>
+        </Col>
+        <Col className="col-9">
+          <ItemDisplay />
+        </Col>
+      </Row>
+    </Container>
   );
 }
 

@@ -1,85 +1,53 @@
-import React, { useCallback, useEffect, useState, useRef } from "react";
-import PropTypes from "prop-types";
-import "./RangeSlider.css";
+import React, { useState } from "react";
+import "./RangeSlider.scss";
 
-const RangeSlider = ({ min, max, onChange }) => {
-  const [minVal, setMinVal] = useState(min);
-  const [maxVal, setMaxVal] = useState(max);
-  const minValRef = useRef(min);
-  const maxValRef = useRef(max);
-  const range = useRef(null);
-
-  const getPercent = useCallback(
-    (value) => Math.round(((value - min) / (max - min)) * 100),
-    [min, max]
-  );
-
-  useEffect(() => {
-    const minPercent = getPercent(minVal);
-    const maxPercent = getPercent(maxValRef.current);
-
-    if (range.current) {
-      range.current.style.left = `${minPercent}%`;
-      range.current.style.width = `${maxPercent - minPercent}%`;
-    }
-  }, [minVal, getPercent]);
-
-  useEffect(() => {
-    const minPercent = getPercent(minValRef.current);
-    const maxPercent = getPercent(maxVal);
-
-    if (range.current) {
-      range.current.style.width = `${maxPercent - minPercent}%`;
-    }
-  }, [maxVal, getPercent]);
-
-  useEffect(() => {
-    onChange({ min: minVal, max: maxVal });
-  }, [minVal, maxVal, onChange]);
-
+export default function RangeSlider() {
+  const [lowerVal, setLowerVal] = useState("0");
+  const [upperVal, setUpperVal] = useState("750");
+  console.log(lowerVal, upperVal);
   return (
-    <div className="box">
-       
-      <input
-        type="range"
-        min={min}
-        max={max}
-        value={minVal}
-        onChange={(event) => {
-          const value = Math.min(Number(event.target.value), maxVal - 1);
-          setMinVal(value);
-          minValRef.current = value;
-        }}
-        className="thumb thumb--left"
-        style={{ zIndex: minVal > max - 100 && "5" }}
-      />
-      <input
-        type="range"
-        min={min}
-        max={max}
-        value={maxVal}
-        onChange={(event) => {
-          const value = Math.max(Number(event.target.value), minVal + 1);
-          setMaxVal(value);
-          maxValRef.current = value;
-        }}
-        className="thumb thumb--right"
-      />
-
-      <div className="slider">
-        <div className="slider__track" />
-        <div ref={range} className="slider__range" />
-        <div className="slider__left-value">{minVal}</div>
-        <div className="slider__right-value">{maxVal}</div>
+    <>
+      <div className="multi-range">
+        
+        <input
+          type="range"
+          min="0"
+          max="1000"
+          value={lowerVal}
+          id="lower"
+          onChange={(e) => {
+            let result = Math.min(e.target.value, upperVal - 100);
+            setLowerVal(result);
+          }}
+        />
+        <input
+          type="range"
+          min="0"
+          max="1000"
+          value={upperVal}
+          id="upper"
+          onChange={(e) => {
+            let result = Math.max(e.target.value, lowerVal + 100);
+            setUpperVal(result);
+          }}
+        />
       </div>
-    </div>
+      <span>
+        From
+        <input
+          type="text"
+          className="left-number"
+          value={`$${lowerVal}`}
+          readOnly
+        />{" "}
+        to
+        <input
+          type="text"
+          className="right-number"
+          value={`$${upperVal}`}
+          readOnly
+        />
+      </span>
+    </>
   );
-};
-
-RangeSlider.propTypes = {
-  min: PropTypes.number.isRequired,
-  max: PropTypes.number.isRequired,
-  onChange: PropTypes.func.isRequired,
-};
-
-export default RangeSlider;
+}

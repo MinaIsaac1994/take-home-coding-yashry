@@ -1,9 +1,11 @@
+// import {useState, useEffect} from 'react'
 import { Container, Row, Col } from "react-bootstrap";
 import Categories from "./components/Categories";
 import ItemDisplay from "./components/ItemDisplay";
 import Filter from "./components/Filter";
 
 function App() {
+  
   return (
     <Container>
       <Row>
@@ -17,7 +19,7 @@ function App() {
       </Row>
       <Row>
         <Col className="col-3">
-          <Filter/>
+          <Filter />
         </Col>
         <Col className="col-9">
           <ItemDisplay />

@@ -1,37 +1,27 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { fetchItems } from "../utils/api";
 import { Container, Card, Button } from "react-bootstrap";
 
 export default function ItemDisplay() {
-  const categories = [
-    {
-      id: 1,
-      name: "Books",
-      image: "http://placeimg.com/640/480/city",
-    },
-    {
-      id: 2,
-      name: "Home",
-      image: "http://placeimg.com/640/480/city",
-    },
-    {
-      id: 3,
-      name: "Kids",
-      image: "http://placeimg.com/640/480/city",
-    },
-    {
-      id: 4,
-      name: "Health",
-      image: "http://placeimg.com/640/480/city",
-    },
-    {
-      id: 5,
-      name: "Clothing",
-      image: "http://placeimg.com/640/480/city",
-    },
-  ];
+  const [items, setItems] = useState([]);
+
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    setLoading(true);
+    fetchItems()
+      .then((data) => setItems(data))
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) {
+    return <p>Data is loading...</p>;
+  }
+
   return (
     <Container className="d-flex p-2  justify-content-around align-items-center    flex-wrap fluid">
-      {categories.map((product) => {
+      {items.map((product) => {
         return (
           <Card
             border="primary"

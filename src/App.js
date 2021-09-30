@@ -1,11 +1,21 @@
-// import {useState, useEffect} from 'react'
+import { useEffect } from "react";
+import { connect } from "react-redux";
 import { Container, Row, Col } from "react-bootstrap";
 import Categories from "./components/Categories";
 import ItemDisplay from "./components/ItemDisplay";
 import Filter from "./components/Filter";
+import { handleData } from "./redux/actions/index";
 
-function App() {
-  
+function App(props) {
+  const { handleData } = props;
+
+  const fetchData = () => {
+    handleData();
+  };
+
+  useEffect(() => {
+    fetchData();
+  });
   return (
     <Container>
       <Row>
@@ -29,4 +39,9 @@ function App() {
   );
 }
 
-export default App;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    handleData: () => dispatch(handleData()),
+  };
+};
+export default connect(null, mapDispatchToProps)(App);

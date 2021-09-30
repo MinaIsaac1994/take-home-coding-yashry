@@ -1,16 +1,19 @@
 import React from "react";
 import { Col, Figure } from "react-bootstrap";
 import { connect } from "react-redux";
-import {handleCategory} from '../redux/actions/index'
-function Categories({ categoriesList,handleCategory}) {
-  const chooseCategory = (id) => {
-    handleCategory(id)
-  };
+import { chooseCategory } from "../redux/actions/chooseCategory";
 
+function Categories({ categoriesList, chooseCategory, handleCategory }) {
   return Object.keys(categoriesList).map((category) => {
     const { id, image, name } = categoriesList[category];
+    const change = (id) => {
+      handleCategory(id)
+    }
     return (
-      <Col key={id} onClick={()=>chooseCategory(id)}>
+      <Col
+        key={id}
+        
+      >
         <Figure>
           <Figure.Image
             width={110}
@@ -28,14 +31,15 @@ function Categories({ categoriesList,handleCategory}) {
   });
 }
 
-function mapStateToProps({ categoriesList }) {
+function mapStateToProps({ categoriesList, chooseCategory }) {
   return {
     categoriesList,
+    chooseCategory,
   };
 }
 const mapDispatchToProps = (dispatch) => {
   return {
-    handleCategory: () => dispatch(handleCategory()),
+    handleCategory: () => dispatch(chooseCategory()),
   };
 };
-export default connect(mapStateToProps,mapDispatchToProps)(Categories);
+export default connect(mapStateToProps, mapDispatchToProps)(Categories);

@@ -4,14 +4,10 @@ import { fetchProducts, fetchGategoryList } from "../../utils/api";
 
 export function handleData() {
   return (dispatch) => {
+    fetchProducts().then((products) => dispatch(getProducts(products)));
     fetchGategoryList().then((categories) =>dispatch(getCategoryList(categories)));
 
-    fetchProducts().then((products) => dispatch(getProducts(products)));
   };
 }
 
-export function handleCategory(id) {
-  return (dispatch) => {
-    fetchProducts(id).then((products) => dispatch(getProducts(products)));
-  };
-}
+

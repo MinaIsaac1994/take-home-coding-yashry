@@ -7,7 +7,7 @@ class ItemDisplay extends Component {
 
   render() {
     const {products} = this.props
-    console.log(products)
+    
     return (
       <Container className="d-flex p-2  justify-content-around align-items-center    flex-wrap fluid">
         {Object.keys(products).map((product) => {

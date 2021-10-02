@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Container, Row, Col } from "react-bootstrap";
 import Categories from "./components/Categories";
 import ItemDisplay from "./components/ItemDisplay";
-import Filter from "./components/Filter";
+import FilterPrice from "./components/FilterPrice";
 import { handleData } from "./redux/actions/index";
 
 function App(props) {
@@ -29,7 +29,7 @@ function App(props) {
       </Row>
       <Row>
         <Col className="col-3">
-          <Filter />
+          <FilterPrice />
         </Col>
         <Col className="col-9">
           <ItemDisplay />

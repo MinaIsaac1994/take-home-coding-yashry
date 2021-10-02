@@ -1,15 +1,14 @@
 import React, { Component } from "react";
 import { Container, Card, Button } from "react-bootstrap";
 import { connect } from "react-redux";
-
 class ItemDisplay extends Component {
   render() {
-    const { filterProducts } = this.props;
-    console.log(filterProducts)
+    const { currentProd } = this.props;
+    console.log("this is the products being displayed", currentProd);
     return (
       <Container className="d-flex p-2  justify-content-around align-items-center    flex-wrap fluid">
-        {Object.keys(filterProducts).map((product) => {
-          const { id, image, name } = filterProducts[product];
+        {currentProd.map((product) => {
+          const { id, image, name } = product;
           return (
             <Card
               border="primary"
@@ -34,14 +33,12 @@ class ItemDisplay extends Component {
 }
 
 function mapStateToProps({ products, chooseCategory }) {
-  let prodByCat;
-  if (chooseCategory) {
-    prodByCat = Object.keys(products).map(prod => products[prod]);
-    prodByCat.filter(prod => prod.id===chooseCategory)
-  }
-  let filterProducts= prodByCat? prodByCat: products
+  const prodArray = Object.keys(products).map((key) => products[key]);
+  const currentProd = chooseCategory
+    ? prodArray.filter((prod) => prod.categoryId === chooseCategory)
+    : prodArray;
   return {
-    filterProducts,
+    currentProd,
   };
 }
 

@@ -5,6 +5,6 @@ import chooseCategory from "./chooseCategory";
 
 export default combineReducers({
     products,
-    categoriesList,
     chooseCategory,
+    categoriesList,
 })

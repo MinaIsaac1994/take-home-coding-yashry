@@ -8,8 +8,9 @@ import reducers from "./redux/reducers";
 import middleware from "./redux/middleware";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
+import { composeWithDevTools } from 'redux-devtools-extension'; 
 
-const store = createStore(reducers, middleware);
+const store = createStore(reducers,composeWithDevTools(middleware) );
 
 ReactDOM.render(
   <Provider store={store}>

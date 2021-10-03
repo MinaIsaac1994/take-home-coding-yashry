@@ -1,6 +1,10 @@
 import React from "react";
+import { setColor } from "../redux/actions/filter/color";
+import { connect } from "react-redux";
 
-export default function ColorSearch() {
+function ColorSearch({dispatchColor}) {
+  const color = 'yellow'
+  dispatchColor  (color)
   let colors = ["Yellow", "Blue", "Red", " Greem", "Black"];
   return (
     <>
@@ -12,14 +16,21 @@ export default function ColorSearch() {
         placeholder="Enter color"
       />
       {colors.map((color) => {
-          return(
-        <div key={color}>
-          <input type="checkbox" id={color} name={color} value={color} />
-          <label htmlFor={color}>{color}</label>
-       </div>
-
-          )
+        return (
+          <div key={color}>
+            <input type="checkbox" id={color} name={color} value={color} />
+            <label htmlFor={color}>{color}</label>
+          </div>
+        );
       })}
     </>
   );
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    dispatchColor: (color) => dispatch(setColor(color)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(ColorSearch);

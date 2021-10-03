@@ -2,8 +2,11 @@ import React from "react";
 import ColorSearch from "./ColorSearch";
 import RangeSlider from "./RangeSlider";
 import StarRating from "./StarRating";
+import { connect } from "react-redux";
+import {setPrice} from '../redux/actions/filter/price'
 
-export default function FilterPrice() {
+function FilterPrice({dispatchPrice}) {
+  dispatchPrice(500)
   return (
     <form>
       <div className="form-group border border-primary  rounded p-2 mt-2">
@@ -19,3 +22,12 @@ export default function FilterPrice() {
     </form>
   );
 }
+
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    dispatchPrice: (price) => dispatch(setPrice(price)),
+  };
+};
+
+export default connect(null,mapDispatchToProps)(FilterPrice);

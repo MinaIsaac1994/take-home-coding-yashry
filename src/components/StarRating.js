@@ -1,10 +1,19 @@
 import React, { useState } from "react";
 import { FaStar } from "react-icons/fa";
 import "./starRating.scss";
+import { setStar } from "../redux/actions/filter/stars";
+import {connect} from 'react-redux'
 
-export default function StarRating() {
+
+ function StarRating({dispatchRating}) {
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
+
+  const handleRating = (e) => {
+    setRating(e.target.value)
+    dispatchRating(e.target.value)
+
+  }
 
   return (
     <div className="star-container">
@@ -16,7 +25,7 @@ export default function StarRating() {
               type="radio"
               name="rating"
               value={ratingVal}
-              onClick={() => setRating(ratingVal)}
+              onClick={(e) => handleRating(e)}
               />
             <FaStar
               className="star"
@@ -31,3 +40,10 @@ export default function StarRating() {
     </div>
   );
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    dispatchRating: (rating) => dispatch(setStar(rating)),
+  };
+};
+export default connect(null,mapDispatchToProps)(StarRating)

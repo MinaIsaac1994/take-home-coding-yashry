@@ -1,10 +1,19 @@
 import React, { useState } from "react";
 import "./RangeSlider.scss";
+import {setUpperPrice,setLowerPrice} from '../redux/actions/filter/price'
+import {connect} from 'react-redux'
 
-export default function RangeSlider() {
+
+function RangeSlider({dispatchUpperPrice,dispatchLowerPrice}) {
   const [lowerVal, setLowerVal] = useState("0");
-  const [upperVal, setUpperVal] = useState("750");
-  console.log(lowerVal, upperVal);
+  const [upperVal, setUpperVal] = useState("1000");
+  
+
+  const setPrices= ()=> {
+    
+  dispatchUpperPrice(upperVal)
+  dispatchLowerPrice(lowerVal)
+  }
   return (
     <>
       <div className="multi-range">
@@ -18,6 +27,8 @@ export default function RangeSlider() {
           onChange={(e) => {
             let result = Math.min(e.target.value, upperVal - 100);
             setLowerVal(result);
+            
+            
           }}
         />
         <input
@@ -29,6 +40,7 @@ export default function RangeSlider() {
           onChange={(e) => {
             let result = Math.max(e.target.value, lowerVal + 100);
             setUpperVal(result);
+            
           }}
         />
       </div>
@@ -48,6 +60,15 @@ export default function RangeSlider() {
           readOnly
         />
       </span>
+      <button  type="button" onClick={setPrices}>Check</button>
     </>
   );
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    dispatchUpperPrice: (price) => dispatch(setUpperPrice(price)),
+    dispatchLowerPrice: (price) => dispatch(setLowerPrice(price)),
+  };
+};
+export default connect(null,mapDispatchToProps)(RangeSlider);

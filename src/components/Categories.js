@@ -5,7 +5,7 @@ import { chooseCategory } from "../redux/actions/chooseCategory";
 
 function Categories({ categoriesList, chooseCategory, dispatchCategory }) {
 
-  console.log(chooseCategory)
+ 
   return Object.keys(categoriesList).map((category) => {
     const { id, image, name } = categoriesList[category];
    

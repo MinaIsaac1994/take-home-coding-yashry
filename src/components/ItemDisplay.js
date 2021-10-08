@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 class ItemDisplay extends Component {
   render() {
     const { currentProd } = this.props;
-    console.log("this is the products being displayed", currentProd);
+    
     return (
       <Container className="d-flex p-2  justify-content-around align-items-center    flex-wrap fluid">
         {currentProd.map((product) => {
@@ -32,8 +32,9 @@ class ItemDisplay extends Component {
   }
 }
 
-function mapStateToProps({ products, chooseCategory }) {
+function mapStateToProps({ products, chooseCategory, filter}) {
   const prodArray = Object.keys(products).map((key) => products[key]);
+
   const currentProd = chooseCategory
     ? prodArray.filter((prod) => prod.categoryId === chooseCategory)
     : prodArray;

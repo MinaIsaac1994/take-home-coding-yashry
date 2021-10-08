@@ -34,7 +34,7 @@ class ItemDisplay extends Component {
 
 function mapStateToProps({ products, chooseCategory, filter}) {
   const prodArray = Object.keys(products).map((key) => products[key]);
-
+  const [stars, price, color] = filter
   const currentProd = chooseCategory
     ? prodArray.filter((prod) => prod.categoryId === chooseCategory)
     : prodArray;

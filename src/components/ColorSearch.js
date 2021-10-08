@@ -2,10 +2,16 @@ import React from "react";
 import { setColor } from "../redux/actions/filter/color";
 import { connect } from "react-redux";
 
-function ColorSearch({dispatchColor}) {
-  const color = 'yellow'
-  dispatchColor  (color)
-  let colors = ["Yellow", "Blue", "Red", " Greem", "Black"];
+function ColorSearch({ dispatchColor }) {
+  // dispatchColor  (color)
+  let colors = [];
+  const handleChange = (e) => {
+    const [name, checked] = e.target;
+    if (checked === true) {
+      colors.push(name)
+    }
+    console.log(colors)
+  };
   return (
     <>
       <label htmlFor="color">Colors</label>
